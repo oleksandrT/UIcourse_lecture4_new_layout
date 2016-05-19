@@ -27,6 +27,7 @@ window.onload = function () {
     // Reset slider when resize window
     window.onresize = function () {
         initBannerSlider();
+        initProductsSlider();
     };
 
 
@@ -75,6 +76,7 @@ window.onload = function () {
             productsSliderContainer.children[i].style.width = productsSliderWidth/3 + 'px';
         }
         productsSliderContainer.style.width = containerWIdth + 'px';
+        productsSliderContainer.style.marginLeft = '0px';
     }
 
     function initProductsSliderControls() {
@@ -90,53 +92,25 @@ window.onload = function () {
     }
 
     function moveProductsSlides(direction) {
-        if ( direction == "left" )
-        {
-            productsSliderContainer.style.marginLeft = -1 * productsSliderWidth + 'px';
-        } else {
-            productsSliderContainer.style.marginLeft = productsSliderWidth + 'px';
-        }
-    }
-
-    /*var slider = document.querySelector(".slider-wrapper"),
-        btnLeft = document.querySelector(".arrow-left"),
-        btnRight = document.querySelector(".arrow-right"),
-        slideW = slider.children[0].clientWidth,
-        slidesN = slider.children.length,
-        maxShift = - (slideW * (slidesN - 1));
-
-    slider.style.marginLeft = "0px";
-
-    btnLeft.addEventListener("click", function() {moveSlides('left')});
-    btnRight.addEventListener("click", function() {moveSlides('right')});
-    window.addEventListener("resize", updateVariables);
-
-    function moveSlides(direction) {
-        var currentMarginLeft = slider.style.marginLeft;
-        var currentMarginLeftVal = parseInt(currentMarginLeft.substr(0, currentMarginLeft.length - 2));
+        var maxShift = -1 * productsSliderWidth * (productsSlidesNum / 3 - 1),
+            currentMarginLeft = productsSliderContainer.style.marginLeft,
+            currentMarginLeftVal = parseInt(currentMarginLeft.substr(0, currentMarginLeft.length - 2));
+        console.log("productsSlidesNum: ", productsSlidesNum / 3 - 1);
         if ( direction == "left" )
         {
             if (currentMarginLeftVal <= maxShift)
             {
-                slider.style.marginLeft = "0px";
+                productsSliderContainer.style.marginLeft = '0px';
             } else {
-                slider.style.marginLeft = currentMarginLeftVal - slideW + "px";
+                productsSliderContainer.style.marginLeft = -1 * productsSliderWidth + 'px';
             }
         } else {
             if (currentMarginLeftVal >= 0)
             {
-                slider.style.marginLeft = maxShift + "px";
+                productsSliderContainer.style.marginLeft = maxShift + 'px';
             } else {
-                slider.style.marginLeft = currentMarginLeftVal + slideW + "px";
+                productsSliderContainer.style.marginLeft = (currentMarginLeftVal + productsSliderWidth) + 'px';
             }
         }
     }
-
-    function updateVariables() {
-        slideW = slider.children[0].clientWidth;
-        currentMarginLeft = "0px";
-        slider.style.marginLeft = "0px";
-        maxShift = - (slideW * (slidesN - 1));
-    }*/
-
 };
