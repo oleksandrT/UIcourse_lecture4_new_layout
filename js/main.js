@@ -2,13 +2,62 @@ window.onload = function () {
 
     // Get elements
     var bannerSection = document.querySelector(".banner"),
-        productsSection = document.querySelector(".products"),
         bannerSlider = bannerSection.querySelector(".slider"),
-        productsSlider = productsSection.querySelector(".banner"),
+        bannerSliderContainer = bannerSlider.querySelector(".slider-container"),
         bannerSliderControls = bannerSection.querySelector(".slider-controls"),
+        productsSection = document.querySelector(".products"),
+        productsSlider = productsSection.querySelector(".slider"),
+        productsSliderContainer = productsSlider.querySelector(".slider-container"),
         productsSliderControls = bannerSection.querySelectorAll(".arrow");
 
-    
+    var bannerSlides = bannerSliderContainer.children,
+        controlsParent = bannerSliderControls.children[0],
+        bannerSlidesNum = bannerSlides.length,
+        slideWidth = bannerSlider.clientWidth;
+
+    initBannerSlider();
+    initBannerSliderControls();
+
+    window.onresize = function () {
+        initBannerSlider();
+    };
+
+    function initBannerSlider() {
+        var containerWIdth = bannerSlidesNum * slideWidth;
+        for (var i = 0; i < bannerSlidesNum; i++) {
+            bannerSliderContainer.children[i].style.width = slideWidth + 'px';
+        }
+        bannerSliderContainer.style.width = containerWIdth + 'px';
+    }
+
+    function initBannerSliderControls() {
+        for (var i = 0; i < bannerSlidesNum; i++) {
+            var spanEl = document.createElement("span"),
+                liEl = document.createElement("li");
+            liEl.appendChild(spanEl);
+            liEl.setAttribute("data-num", i);
+            controlsParent.appendChild(liEl);
+        }
+
+        controlsParent.children[0].className = "active";
+
+        for (var i = 0; i < bannerSlidesNum; i++) {
+            controlsParent.children[i].addEventListener("click", function () { moveSlides(this) });
+        }
+    }
+
+    function moveSlides(self) {
+        if (self.className == "active") return;
+
+        bannerSliderContainer.style.marginLeft = -1 * (self.getAttribute("data-num") * slideWidth) + 'px';
+
+        for (var i = 0; i < bannerSlidesNum; i++) {
+            controlsParent.children[i].className = "";
+        }
+
+        self.className = "active";
+
+    }
 
     /*var slider = document.querySelector(".slider-wrapper"),
         btnLeft = document.querySelector(".arrow-left"),

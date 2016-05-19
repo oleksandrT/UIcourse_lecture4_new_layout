@@ -158,6 +158,8 @@ nav {
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+		margin-left: 4px;
+		transition: margin 0.3s ease-in-out;
 	}
 
 	.banner .slider li {
@@ -170,6 +172,10 @@ nav {
 		display: inline-block;
 		vertical-align: top;
 		padding: 67px 0 0 78px;
+	}
+
+	.banner .slider .slider-image img{
+		max-width: 100%;
 	}
 
 	.banner .slider .slider-text {
@@ -323,6 +329,7 @@ nav {
 	    width: 29px;
 		border: none;
 		margin-top: -44px;
+		outline: none;
 		cursor: pointer;
 		transition: background-color 0.5s ease;
 	}
