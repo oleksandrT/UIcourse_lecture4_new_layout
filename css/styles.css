@@ -263,6 +263,7 @@ nav {
 
 	.products .slider-container {
 		width: 200%; /* 100% * 2 screens */
+		transition: margin 0.3s ease-in-out;
 	}
 
 	.products .col-1to3 {

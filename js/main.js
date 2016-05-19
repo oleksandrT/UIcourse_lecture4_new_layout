@@ -8,21 +8,31 @@ window.onload = function () {
         productsSection = document.querySelector(".products"),
         productsSlider = productsSection.querySelector(".slider"),
         productsSliderContainer = productsSlider.querySelector(".slider-container"),
-        productsSliderControls = bannerSection.querySelectorAll(".arrow");
+        productsSliderControls = productsSection.querySelectorAll(".arrow");
 
     var bannerSlides = bannerSliderContainer.children,
         controlsParent = bannerSliderControls.children[0],
         bannerSlidesNum = bannerSlides.length,
-        slideWidth = bannerSlider.clientWidth;
+        productsSlides = productsSliderContainer.children,
+        productsSlidesNum = productsSlides.length;
 
+    var slideWidth, productsSlideWidth;
+
+    // Initialize slider
     initBannerSlider();
     initBannerSliderControls();
+    initProductsSlider();
+    initProductsSliderControls();
 
+    // Reset slider when resize window
     window.onresize = function () {
         initBannerSlider();
     };
 
+
+
     function initBannerSlider() {
+        slideWidth = bannerSlider.clientWidth;
         var containerWIdth = bannerSlidesNum * slideWidth;
         for (var i = 0; i < bannerSlidesNum; i++) {
             bannerSliderContainer.children[i].style.width = slideWidth + 'px';
@@ -56,7 +66,36 @@ window.onload = function () {
         }
 
         self.className = "active";
+    }
 
+    function initProductsSlider() {
+        productsSliderWidth = bannerSlider.clientWidth;
+        var containerWIdth = productsSlidesNum * productsSliderWidth / 3;
+        for (var i = 0; i < productsSlidesNum; i++) {
+            productsSliderContainer.children[i].style.width = productsSliderWidth/3 + 'px';
+        }
+        productsSliderContainer.style.width = containerWIdth + 'px';
+    }
+
+    function initProductsSliderControls() {
+        var n = productsSliderControls.length;
+        for (var i = 0; i < n; i++) {
+            var cls = productsSliderControls[i].className;
+            if( cls.indexOf("left") > 0 ) {
+                productsSliderControls[i].addEventListener("click", function () { moveProductsSlides("left") });
+            } else if ( cls.indexOf("right") > 0 ) {
+                productsSliderControls[i].addEventListener("click", function () { moveProductsSlides("right") });
+            }
+        }
+    }
+
+    function moveProductsSlides(direction) {
+        if ( direction == "left" )
+        {
+            productsSliderContainer.style.marginLeft = -1 * productsSliderWidth + 'px';
+        } else {
+            productsSliderContainer.style.marginLeft = productsSliderWidth + 'px';
+        }
     }
 
     /*var slider = document.querySelector(".slider-wrapper"),
